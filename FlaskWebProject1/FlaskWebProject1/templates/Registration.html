@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>
+
+<form action="{{ url_for('register') }}" method="post">
+    <input type="text" id="name" name="name">
+    <input type="email" id="email" name="email">
+    <input type="submit" value="Submit">
+</form>
+
+<h1>User Records</h1>
+
+<table border="1">
+    <tr>
+        <th>Raw</th>
+        <th>User ID</th>
+
+        <th>Name</th>
+
+        <th>Email</th>
+    </tr>
+    {% for record in records %}
+    <tr>
+        <td>{{ record }}</td>
+        <td>{{ record[0] }}</td>
+        <td>{{ record[1] }}</td>
+        <td>{{ record[2] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p>
+
+    {% if page is defined %}
+    <!-- Your code using 'page' variable -->
+        Page {{ page }}
+        {% if page > 1 %}
+        <a href="{{ url_for('register', page=page-1) }}">Previous</a>
+        {% endif %}
+
+        <a href="{{ url_for('register', page=page+1) }}">Next</a>
+
+    {% endif %}
+
+</p>
+
+{% endblock %}
